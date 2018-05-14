@@ -17,5 +17,10 @@ namespace Lab2_IM
             var couny = DynamicModelingFunctional.Simulate(100, 1);
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var count = DynamicModelingFunctional.Simulate();
+        }
     }
 }

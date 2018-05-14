@@ -4,7 +4,6 @@ namespace Lab2_IM
 {
     class DynamicModeling
     {
-
         public void StartModeling(double deltaTime, double interval)
         {
             //Уровни
@@ -43,8 +42,7 @@ namespace Lab2_IM
 
             //Задержки
 
-
-            for (double timeScale = 0; timeScale < interval; timeScale+=deltaTime)
+            for (double timeScale = 0; timeScale < interval; timeScale += deltaTime)
             {
                 //Рассчитываем потоки
                 for (int i = 0; i < flowsA.Length; i++)
@@ -66,11 +64,7 @@ namespace Lab2_IM
                 inputFlowA.TryComplation();
                 inputFlowB.TryComplation();
             }
-
-
         }
-
-
     }
 
     class Flow
@@ -136,7 +130,6 @@ namespace Lab2_IM
         private readonly double maxReplenishment;
         private readonly double criticalValue;
         private readonly GetDistribution getCompletion;
-
 
         public InputFlow(Level to, GetDistribution getCompletion, double maxReplenishment, double criticalValue)
         {
@@ -207,13 +200,11 @@ namespace Lab2_IM
             }
 
             var deltaMu = mu[1] - mu[0];
-            //Тут идёт эвристика. Будем вычитать из альфы некую константу в ветви, где mu больше
-            
+            //Тут идёт эвристика. Будем вычитать из альфы некую константу в ветви, где mu больше            
 
             throw new NotImplementedException();
         }
     }
-
 
     class Level
     {
@@ -228,7 +219,6 @@ namespace Lab2_IM
 
     public static class Distribution
     {
-        
         static Random random = new Random();
 
         /// <summary>
@@ -243,7 +233,7 @@ namespace Lab2_IM
 
             int pos = 0;
 
-            while(R>probability[pos])
+            while (R > probability[pos])
             {
                 R -= probability[pos];
                 pos++;

@@ -15,7 +15,7 @@ namespace Lab2_IM
         public Form1()
         {
             var model = new DynamicModeling();
-            model.StartModeling(1, 100);
+            model.StartModeling(1, 100);            
             InitializeComponent();
         }
     }

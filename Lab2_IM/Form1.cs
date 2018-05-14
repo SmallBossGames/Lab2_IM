@@ -20,7 +20,7 @@ namespace Lab2_IM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var count = DynamicModelingFunctional.Simulate();
+            var count = DynamicModelingFunctional.Simulate(Convert.ToDouble(IntervalTextBox.Text), Convert.ToDouble(DeltaTextBox.Text));
         }
     }
 }

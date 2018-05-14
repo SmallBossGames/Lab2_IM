@@ -14,13 +14,13 @@ namespace Lab2_IM
     {
         public Form1()
         {
-            var couny = DynamicModelingFunctional.Simulate(100, 1);
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var count = DynamicModelingFunctional.Simulate(Convert.ToDouble(IntervalTextBox.Text), Convert.ToDouble(DeltaTextBox.Text));
+            ResultTextBox.Text = count.ToString();
         }
     }
 }

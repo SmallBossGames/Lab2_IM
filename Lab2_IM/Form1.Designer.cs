@@ -33,17 +33,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.DeltaTextBox = new System.Windows.Forms.TextBox();
+            this.resultDataGrid = new System.Windows.Forms.DataGridView();
+            this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stackA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stackB = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alphaA = new System.Windows.Forms.TextBox();
+            this.alphaB = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.ResultTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // BUTTON
             // 
-            this.BUTTON.Location = new System.Drawing.Point(12, 88);
+            this.BUTTON.Location = new System.Drawing.Point(12, 113);
             this.BUTTON.Name = "BUTTON";
-            this.BUTTON.Size = new System.Drawing.Size(103, 23);
+            this.BUTTON.Size = new System.Drawing.Size(168, 23);
             this.BUTTON.TabIndex = 0;
-            this.BUTTON.Text = "PUSH BUTTON";
+            this.BUTTON.Text = "Начать";
             this.BUTTON.UseVisualStyleBackColor = true;
             this.BUTTON.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -74,35 +82,90 @@
             // 
             // DeltaTextBox
             // 
-            this.DeltaTextBox.Location = new System.Drawing.Point(69, 34);
+            this.DeltaTextBox.Location = new System.Drawing.Point(80, 34);
             this.DeltaTextBox.Name = "DeltaTextBox";
             this.DeltaTextBox.Size = new System.Drawing.Size(100, 20);
             this.DeltaTextBox.TabIndex = 4;
             // 
+            // resultDataGrid
+            // 
+            this.resultDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.resultDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.time,
+            this.count,
+            this.stackA,
+            this.stackB});
+            this.resultDataGrid.Location = new System.Drawing.Point(186, 6);
+            this.resultDataGrid.Name = "resultDataGrid";
+            this.resultDataGrid.Size = new System.Drawing.Size(446, 455);
+            this.resultDataGrid.TabIndex = 7;
+            // 
+            // time
+            // 
+            this.time.HeaderText = "Время";
+            this.time.Name = "time";
+            this.time.ReadOnly = true;
+            // 
+            // count
+            // 
+            this.count.HeaderText = "Количество";
+            this.count.Name = "count";
+            this.count.ReadOnly = true;
+            // 
+            // stackA
+            // 
+            this.stackA.HeaderText = "Заготовки 1";
+            this.stackA.Name = "stackA";
+            this.stackA.ReadOnly = true;
+            // 
+            // stackB
+            // 
+            this.stackB.HeaderText = "Заготовки 2";
+            this.stackB.Name = "stackB";
+            this.stackB.ReadOnly = true;
+            // 
+            // alphaA
+            // 
+            this.alphaA.Location = new System.Drawing.Point(80, 61);
+            this.alphaA.Name = "alphaA";
+            this.alphaA.Size = new System.Drawing.Size(100, 20);
+            this.alphaA.TabIndex = 8;
+            // 
+            // alphaB
+            // 
+            this.alphaB.Location = new System.Drawing.Point(80, 87);
+            this.alphaB.Name = "alphaB";
+            this.alphaB.Size = new System.Drawing.Size(100, 20);
+            this.alphaB.TabIndex = 9;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 65);
+            this.label3.Location = new System.Drawing.Point(12, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Результат: ";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Альфа A";
             // 
-            // ResultTextBox
+            // label4
             // 
-            this.ResultTextBox.Location = new System.Drawing.Point(80, 62);
-            this.ResultTextBox.Name = "ResultTextBox";
-            this.ResultTextBox.ReadOnly = true;
-            this.ResultTextBox.Size = new System.Drawing.Size(100, 20);
-            this.ResultTextBox.TabIndex = 6;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 90);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Альфа B";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(227, 120);
-            this.Controls.Add(this.ResultTextBox);
+            this.ClientSize = new System.Drawing.Size(642, 473);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.alphaB);
+            this.Controls.Add(this.alphaA);
+            this.Controls.Add(this.resultDataGrid);
             this.Controls.Add(this.DeltaTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -110,6 +173,7 @@
             this.Controls.Add(this.BUTTON);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,8 +186,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox DeltaTextBox;
+        private System.Windows.Forms.DataGridView resultDataGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn count;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stackA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stackB;
+        private System.Windows.Forms.TextBox alphaA;
+        private System.Windows.Forms.TextBox alphaB;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox ResultTextBox;
+        private System.Windows.Forms.Label label4;
     }
 }
 

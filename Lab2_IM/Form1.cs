@@ -19,8 +19,31 @@ namespace Lab2_IM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var count = DynamicModelingFunctional.Simulate(Convert.ToDouble(IntervalTextBox.Text), Convert.ToDouble(DeltaTextBox.Text));
-            ResultTextBox.Text = count.ToString();
+            try
+            {
+                resultDataGrid.Rows.Clear();
+                var chartForm = new ChartsForm();
+
+                var alphaArrayA = new double[2];
+                alphaArrayA[0] = alphaArrayA[1] = Double.Parse(alphaA.Text);
+
+                var alphaArrayB = new double[4];
+                alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = Double.Parse(alphaB.Text);
+
+                var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
+
+                foreach (var a in simualateEnum)
+                {
+                    chartForm.AddChartData(a);
+                    resultDataGrid.Rows.Add(a.time, a.count, a.stackA, a.stackB);
+                }
+
+                chartForm.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так");
+            }
         }
     }
 }

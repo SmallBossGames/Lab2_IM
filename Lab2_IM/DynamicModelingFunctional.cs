@@ -62,8 +62,11 @@ namespace Lab2_IM
             return makingCount;
         }
 
+        //Функциональное программирование, так функциональное программирование
+        //Юзаем кортежи
+
         //Основной процесс
-        public static int Simulate(double intervalLength, double deltaTime)
+        public static IEnumerable<(double time, int count, int stackA, int stackB)> Simulate(double intervalLength, double deltaTime, double[] flowsAlphaA, double[] flowsAlphaB)
         {
             //Константы 
             const double minDelay = 4;
@@ -91,13 +94,6 @@ namespace Lab2_IM
             levelsB[4] = 50;
 
             var levelsBDefault = levelsB.Clone() as double[];
-
-            //Начальные значения Alpha для потоков
-            var flowsAlphaA = new double[2];
-            flowsAlphaA[0] = flowsAlphaA[1] = 1;
-
-            var flowsAlphaB = new double[4];
-            flowsAlphaB[0] = flowsAlphaB[1] = flowsAlphaB[2] = flowsAlphaB[3] = 1;
 
             //Начальные значения задержки. Пусть они равны средней
             var levelsADelay = new double[3];
@@ -129,9 +125,9 @@ namespace Lab2_IM
                 }
 
                 productCount += MakeProduct(aNeed, bNeed, ref levelsA[2], ref levelsB[4]);
-            }
 
-            return productCount;
+                yield return (i * deltaTime, productCount, (int)levelsA[2], (int)levelsB[4]);
+            }
         }
 
     }

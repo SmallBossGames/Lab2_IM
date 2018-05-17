@@ -9,8 +9,10 @@ namespace Lab2_IM
     /// <summary>
     /// Код для лабы в функциональном стиле. Никаких классов. Вообще. Кроме этого
     /// </summary>
+    /// 
     static class DynamicModelingFunctional
     {
+        
         //Константы
         static readonly Random random = new Random();
 
@@ -41,11 +43,17 @@ namespace Lab2_IM
         //Основные функции
         static double Flow(double level, double delay) => level / delay;
 
-        static double Delay(double minDelay, double maxDelay, double currentDelay, double level, double alpha)
+        static double Delay(double minDelay, double maxDelay, double currentDelay, double level, double alpha) 
             => minDelay + GetMid(minDelay, maxDelay) * (level / currentDelay) + maxDelay * alpha;
 
-        static double Level(double currentLevel, double deltaTime, double delay)
-            => currentLevel + deltaTime * Flow(currentLevel, delay);
+        static void Level(ref double levelFrom, ref double levelTo, double deltaTime, double delay)
+        {
+            if (levelFrom < 0) throw new Exception();
+            var flow = deltaTime * Flow(levelFrom, delay);
+            levelFrom -= flow;
+            levelTo += flow;
+            if(levelTo < 0) throw new Exception();
+        }
 
         static double LevelWithInput(double currentLevel, double criticalValue)
             => currentLevel < criticalValue ? currentLevel + GetCompletion() : currentLevel;
@@ -114,14 +122,14 @@ namespace Lab2_IM
 
                 for (int j = 1; j < levelsA.Length; j++)
                 {
-                    levelsADelay[j] = Delay(minDelay, maxDelay, levelsADelay[j], levelsA[j], flowsAlphaA[j - 1]);
-                    levelsA[j] = Level(levelsA[j], deltaTime, levelsADelay[j]);
+                    levelsADelay[j-1] = Delay(minDelay, maxDelay, levelsADelay[j-1], levelsA[j-1], flowsAlphaA[j - 1]);
+                    Level(ref levelsA[j - 1], ref levelsA[j], deltaTime, levelsADelay[j-1]);
                 }
 
                 for (int j = 1; j < levelsB.Length; j++)
                 {
-                    levelsBDelay[j] = Delay(minDelay, maxDelay, levelsBDelay[j], levelsB[j], flowsAlphaB[j - 1]);
-                    levelsB[j] = Level(levelsB[j], deltaTime, levelsBDelay[j]);
+                    levelsBDelay[j-1] = Delay(minDelay, maxDelay, levelsBDelay[j-1], levelsB[j-1], flowsAlphaB[j - 1]);
+                    Level(ref levelsB[j-1], ref levelsB[j], deltaTime, levelsBDelay[j-1]);
                 }
 
                 productCount += MakeProduct(aNeed, bNeed, ref levelsA[2], ref levelsB[4]);

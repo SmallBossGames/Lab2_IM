@@ -134,6 +134,5 @@ namespace Lab2_IM
                 yield return (i * deltaTime, productCount, (int)levelsA[2], (int)levelsB[4]);
             }
         }
-
     }
 }

@@ -55,7 +55,7 @@
             this.countChart.Name = "countChart";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
+            series1.Name = "Количество произведённых продуктов";
             this.countChart.Series.Add(series1);
             this.countChart.Size = new System.Drawing.Size(384, 300);
             this.countChart.TabIndex = 0;
@@ -71,7 +71,7 @@
             this.stackAChart.Name = "stackAChart";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
-            series2.Name = "Series1";
+            series2.Name = "Заполненность склада А";
             this.stackAChart.Series.Add(series2);
             this.stackAChart.Size = new System.Drawing.Size(384, 300);
             this.stackAChart.TabIndex = 1;
@@ -87,7 +87,7 @@
             this.stackBChart.Name = "stackBChart";
             series3.ChartArea = "ChartArea1";
             series3.Legend = "Legend1";
-            series3.Name = "Series1";
+            series3.Name = "Заполненность склада В";
             this.stackBChart.Series.Add(series3);
             this.stackBChart.Size = new System.Drawing.Size(384, 300);
             this.stackBChart.TabIndex = 2;

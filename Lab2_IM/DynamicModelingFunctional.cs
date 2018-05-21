@@ -9,7 +9,6 @@ namespace Lab2_IM
     /// <summary>
     /// Код для лабы в функциональном стиле. Никаких классов. Вообще. Кроме этого
     /// </summary>
-    /// 
     static class DynamicModelingFunctional
     {
         
@@ -56,7 +55,7 @@ namespace Lab2_IM
         }
 
         static double LevelWithInput(double currentLevel, double criticalValue)
-            => currentLevel < criticalValue ? currentLevel + GetCompletion() : currentLevel;
+            => (currentLevel < criticalValue) ? currentLevel + GetCompletion() : currentLevel;
 
         static int MakeProduct(double aNeed, double bNeed, ref double levelA, ref double levelB)
         {

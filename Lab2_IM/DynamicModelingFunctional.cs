@@ -46,12 +46,12 @@ namespace Lab2_IM
         static double Delay(double minDelay, double maxDelay, double currentDelay, double level, double alpha) 
             => minDelay + GetMid(minDelay, maxDelay) * (level / currentDelay) + maxDelay * alpha;
 
-        static void Level(ref double levelFrom, ref double levelTo, double deltaTime, double delay)
+        static void Level(ref double levelFrom, ref double levelTo, double deltaTime, double flow)
         {
             if (levelFrom < 0) throw new Exception();
-            var flow = deltaTime * Flow(levelFrom, delay);
-            levelFrom -= flow;
-            levelTo += flow;
+            var currentFlow = deltaTime * flow;
+            levelFrom -= currentFlow;
+            levelTo += currentFlow;
             if(levelTo < 0) throw new Exception();
         }
 
@@ -83,7 +83,7 @@ namespace Lab2_IM
             const double aNeed = 50;
             const double bNeed = 100;
 
-            //Мерзкие переменные, которые нужно возвращать
+            
             var productCount = 0;
 
             //Начальные значения уровней
@@ -123,13 +123,15 @@ namespace Lab2_IM
                 for (int j = 1; j < levelsA.Length; j++)
                 {
                     levelsADelay[j-1] = Delay(minDelay, maxDelay, levelsADelay[j-1], levelsA[j-1], flowsAlphaA[j - 1]);
-                    Level(ref levelsA[j - 1], ref levelsA[j], deltaTime, levelsADelay[j-1]);
+                    var flow = Flow(levelsA[j - 1], levelsADelay[j - 1]);
+                    Level(ref levelsA[j - 1], ref levelsA[j], deltaTime, flow);
                 }
 
                 for (int j = 1; j < levelsB.Length; j++)
                 {
                     levelsBDelay[j-1] = Delay(minDelay, maxDelay, levelsBDelay[j-1], levelsB[j-1], flowsAlphaB[j - 1]);
-                    Level(ref levelsB[j-1], ref levelsB[j], deltaTime, levelsBDelay[j-1]);
+                    var flow = Flow(levelsB[j - 1], levelsBDelay[j - 1]);
+                    Level(ref levelsB[j-1], ref levelsB[j], deltaTime, flow);
                 }
 
                 productCount += MakeProduct(aNeed, bNeed, ref levelsA[2], ref levelsB[4]);

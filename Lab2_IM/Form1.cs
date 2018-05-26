@@ -41,11 +41,11 @@ namespace Lab2_IM
                     resultDataGrid.Rows.Clear();
                     var chartForm = new ChartsForm();
 
-                    var alphaArrayA = new double[2];
-                    alphaArrayA[0] = alphaArrayA[1] = alphaAI; //Double.Parse(alphaA.Text);
+                    var alphaArrayA = new double[3];
+                    alphaArrayA[0] = alphaArrayA[1] = alphaArrayA[2] = alphaAI; //Double.Parse(alphaA.Text);
 
-                    var alphaArrayB = new double[4];
-                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaBI; //Double.Parse(alphaB.Text);
+                    var alphaArrayB = new double[5];
+                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaArrayB[4] = alphaBI; //Double.Parse(alphaB.Text);
 
                     var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
 
@@ -60,9 +60,9 @@ namespace Lab2_IM
                     if (AlphaComboBox.SelectedIndex == 0) alphaAI += (double)step;
                     else alphaBI += (double)step;
                 }
-                catch
+                catch(Exception e2)
                 {
-                    MessageBox.Show("Что-то пошло не так");
+                    MessageBox.Show(e2.Message);
                 }
             }
         }

@@ -9,16 +9,16 @@ namespace Lab2_IM
     /// <summary>
     /// Код для лабы в функциональном стиле. Никаких классов. Вообще. Кроме этого
     /// </summary>
-    /// 
     static class DynamicModelingFunctional
     {
+        
         //Константы
         static readonly Random random = new Random();
 
         //Вспомогательные функции
         static double GetMid(double minDelay, double maxDelay) => (maxDelay - minDelay) / 2.0;
 
-        static double GetCriticalValue(double defaultValue, double criticalKoefficient)
+        static double GetCriticalValue(double defaultValue, double criticalKoefficient) 
             => defaultValue * criticalKoefficient;
 
         static double GetCompletion()
@@ -42,20 +42,20 @@ namespace Lab2_IM
         //Основные функции
         static double Flow(double level, double delay) => level / delay;
 
-        static double Delay(double minDelay, double maxDelay, double currentDelay, double level, double alpha)
+        static double Delay(double minDelay, double maxDelay, double currentDelay, double level, double alpha) 
             => minDelay + GetMid(minDelay, maxDelay) * (level / currentDelay) + maxDelay * alpha;
 
-        static void Level(ref double levelFrom, ref double levelTo, double deltaTime, double delay)
+        static void Level(ref double levelFrom, ref double levelTo, double deltaTime, double flow)
         {
             if (levelFrom < 0) throw new Exception();
-            var flow = deltaTime * Flow(levelFrom, delay);
-            levelFrom -= flow;
-            levelTo += flow;
-            if (levelTo < 0) throw new Exception();
+            var currentFlow = deltaTime * flow;
+            levelFrom -= currentFlow;
+            levelTo += currentFlow;
+            if(levelTo < 0) throw new Exception();
         }
 
         static double LevelWithInput(double currentLevel, double criticalValue)
-            => currentLevel < criticalValue ? currentLevel + GetCompletion() : currentLevel;
+            => (currentLevel < criticalValue) ? currentLevel + GetCompletion() : currentLevel;
 
         static int MakeProduct(double aNeed, double bNeed, ref double levelA, ref double levelB)
         {
@@ -82,7 +82,7 @@ namespace Lab2_IM
             const double aNeed = 50;
             const double bNeed = 100;
 
-            //Мерзкие переменные, которые нужно возвращать
+            
             var productCount = 0;
 
             //Начальные значения уровней
@@ -108,8 +108,10 @@ namespace Lab2_IM
                 = GetMid(minDelay, maxDelay);
 
             var levelsBDelay = new double[5];
-            levelsBDelay[0] = levelsBDelay[1] = levelsBDelay[2] = levelsBDelay[3] = levelsBDelay[4]
+            levelsBDelay[0] = levelsBDelay[1] = levelsBDelay[2] = levelsBDelay[3] = levelsBDelay[4] 
                 = GetMid(minDelay, maxDelay);
+
+
 
             //Основной цикл
             for (int i = 0; i * deltaTime < intervalLength; i++)
@@ -119,14 +121,16 @@ namespace Lab2_IM
 
                 for (int j = 1; j < levelsA.Length; j++)
                 {
-                    levelsADelay[j - 1] = Delay(minDelay, maxDelay, levelsADelay[j - 1], levelsA[j - 1], flowsAlphaA[j - 1]);
-                    Level(ref levelsA[j - 1], ref levelsA[j], deltaTime, levelsADelay[j - 1]);
+                    levelsADelay[j-1] = Delay(minDelay, maxDelay, levelsADelay[j-1], levelsA[j-1], flowsAlphaA[j - 1]);
+                    var flow = Flow(levelsA[j - 1], levelsADelay[j - 1]);
+                    Level(ref levelsA[j - 1], ref levelsA[j], deltaTime, flow);
                 }
 
                 for (int j = 1; j < levelsB.Length; j++)
                 {
-                    levelsBDelay[j - 1] = Delay(minDelay, maxDelay, levelsBDelay[j - 1], levelsB[j - 1], flowsAlphaB[j - 1]);
-                    Level(ref levelsB[j - 1], ref levelsB[j], deltaTime, levelsBDelay[j - 1]);
+                    levelsBDelay[j-1] = Delay(minDelay, maxDelay, levelsBDelay[j-1], levelsB[j-1], flowsAlphaB[j - 1]);
+                    var flow = Flow(levelsB[j - 1], levelsBDelay[j - 1]);
+                    Level(ref levelsB[j-1], ref levelsB[j], deltaTime, flow);
                 }
 
                 productCount += MakeProduct(aNeed, bNeed, ref levelsA[2], ref levelsB[4]);
@@ -134,5 +138,6 @@ namespace Lab2_IM
                 yield return (i * deltaTime, productCount, (int)levelsA[2], (int)levelsB[4]);
             }
         }
+
     }
 }

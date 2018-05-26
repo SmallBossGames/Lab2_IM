@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FSharpModeling;
 
 namespace Lab2_IM
 {
@@ -150,5 +151,34 @@ namespace Lab2_IM
             }
         }
 
+        public static IEnumerable<(double time, int count, int stackA, int stackB)> SimulateFSharp(double intervalLength, double alphaA, double alphaB, double deltaTime)
+        {
+
+            //Начальные значения уровней
+            var levelsA = new double[3];
+            levelsA[0] = 150;
+            levelsA[1] = 30;
+            levelsA[2] = 25;
+
+            var levelsB = new double[5];
+            levelsB[0] = 120;
+            levelsB[1] = 30;
+            levelsB[2] = 30;
+            levelsB[3] = 30;
+            levelsB[4] = 50;
+
+            var levelsADelay = new double[3];
+            levelsADelay[0] = levelsADelay[1] = levelsADelay[2]
+                = (4 + 12) / 2;
+
+            var levelsBDelay = new double[5];
+            levelsBDelay[0] = levelsBDelay[1] = levelsBDelay[2] = levelsBDelay[3] = levelsBDelay[4]
+                = (4 + 12) / 2;
+
+            MainSystem.SimulationInput input =
+                new MainSystem.SimulationInput(levelsA, levelsB, levelsADelay, levelsBDelay, alphaA, alphaB, deltaTime);
+
+            return MainSystem.simulation(input, intervalLength);
+        }
     }
 }

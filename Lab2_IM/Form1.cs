@@ -91,9 +91,37 @@ namespace Lab2_IM
 
                 chartForm.Show();
             }
-            catch
+            catch(Exception exception)
             {
-                MessageBox.Show("Что-то пошло не так");
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void TableButtonFSharp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                resultDataGrid.Rows.Clear();
+                var chartForm = new ChartsForm();
+
+                var alphaArrayA = Double.Parse(TableATextBox.Text);
+                var alphaArrayB = Double.Parse(TableBTextBox.Text);
+                var interval = Double.Parse(IntervalTextBox.Text);
+                var deltaTime = Double.Parse(DeltaTextBox.Text);
+
+                var simualateEnum = DynamicModelingFunctional.SimulateFSharp(interval, deltaTime, alphaArrayA, alphaArrayB);
+
+                foreach (var a in simualateEnum)
+                {
+                    chartForm.AddChartData(a);
+                    resultDataGrid.Rows.Add(a.time, a.count, a.stackA, a.stackB);
+                }
+
+                chartForm.Show();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
         }
     }

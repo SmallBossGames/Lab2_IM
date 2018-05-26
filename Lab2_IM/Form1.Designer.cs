@@ -56,9 +56,9 @@
             this.TableATextBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.TableBTextBox = new System.Windows.Forms.TextBox();
-            this.TableButton = new System.Windows.Forms.Button();
+            this.TableButtonCSharp = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.TableButtonFSharp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -288,15 +288,15 @@
             this.TableBTextBox.Size = new System.Drawing.Size(100, 20);
             this.TableBTextBox.TabIndex = 27;
             // 
-            // TableButton
+            // TableButtonCSharp
             // 
-            this.TableButton.Location = new System.Drawing.Point(12, 409);
-            this.TableButton.Name = "TableButton";
-            this.TableButton.Size = new System.Drawing.Size(180, 23);
-            this.TableButton.TabIndex = 28;
-            this.TableButton.Text = "Рассчёт на C#";
-            this.TableButton.UseVisualStyleBackColor = true;
-            this.TableButton.Click += new System.EventHandler(this.TableButton_Click);
+            this.TableButtonCSharp.Location = new System.Drawing.Point(12, 409);
+            this.TableButtonCSharp.Name = "TableButtonCSharp";
+            this.TableButtonCSharp.Size = new System.Drawing.Size(180, 23);
+            this.TableButtonCSharp.TabIndex = 28;
+            this.TableButtonCSharp.Text = "Рассчёт на C#";
+            this.TableButtonCSharp.UseVisualStyleBackColor = true;
+            this.TableButtonCSharp.Click += new System.EventHandler(this.TableButton_Click);
             // 
             // label13
             // 
@@ -307,23 +307,24 @@
             this.label13.TabIndex = 29;
             this.label13.Text = "Построение графиков";
             // 
-            // button1
+            // TableButtonFSharp
             // 
-            this.button1.Location = new System.Drawing.Point(11, 438);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 23);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "Рассчёт на F#";
-            this.button1.UseVisualStyleBackColor = true;
+            this.TableButtonFSharp.Location = new System.Drawing.Point(11, 438);
+            this.TableButtonFSharp.Name = "TableButtonFSharp";
+            this.TableButtonFSharp.Size = new System.Drawing.Size(180, 23);
+            this.TableButtonFSharp.TabIndex = 30;
+            this.TableButtonFSharp.Text = "Рассчёт на F#";
+            this.TableButtonFSharp.UseVisualStyleBackColor = true;
+            this.TableButtonFSharp.Click += new System.EventHandler(this.TableButtonFSharp_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(654, 473);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TableButtonFSharp);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.TableButton);
+            this.Controls.Add(this.TableButtonCSharp);
             this.Controls.Add(this.TableBTextBox);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.TableATextBox);
@@ -386,9 +387,9 @@
         private System.Windows.Forms.TextBox TableATextBox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox TableBTextBox;
-        private System.Windows.Forms.Button TableButton;
+        private System.Windows.Forms.Button TableButtonCSharp;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button TableButtonFSharp;
     }
 }
 

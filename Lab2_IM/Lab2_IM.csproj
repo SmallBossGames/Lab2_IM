@@ -99,5 +99,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FSharpModeling\FSharpModeling.fsproj">
+      <Project>{25d1d0d8-b512-42ec-9c34-ed83f6c77280}</Project>
+      <Name>FSharpModeling</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

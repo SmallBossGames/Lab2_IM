@@ -38,8 +38,6 @@
             this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stackA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stackB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.alphaA = new System.Windows.Forms.TextBox();
-            this.alphaB = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -135,20 +133,6 @@
             this.stackB.HeaderText = "Заготовки 2";
             this.stackB.Name = "stackB";
             this.stackB.ReadOnly = true;
-            // 
-            // alphaA
-            // 
-            this.alphaA.Location = new System.Drawing.Point(80, 84);
-            this.alphaA.Name = "alphaA";
-            this.alphaA.Size = new System.Drawing.Size(100, 20);
-            this.alphaA.TabIndex = 8;
-            // 
-            // alphaB
-            // 
-            this.alphaB.Location = new System.Drawing.Point(65, 158);
-            this.alphaB.Name = "alphaB";
-            this.alphaB.Size = new System.Drawing.Size(100, 20);
-            this.alphaB.TabIndex = 9;
             // 
             // label3
             // 
@@ -284,8 +268,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.alphaB);
-            this.Controls.Add(this.alphaA);
             this.Controls.Add(this.resultDataGrid);
             this.Controls.Add(this.DeltaTextBox);
             this.Controls.Add(this.label2);
@@ -312,8 +294,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn count;
         private System.Windows.Forms.DataGridViewTextBoxColumn stackA;
         private System.Windows.Forms.DataGridViewTextBoxColumn stackB;
-        private System.Windows.Forms.TextBox alphaA;
-        private System.Windows.Forms.TextBox alphaB;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

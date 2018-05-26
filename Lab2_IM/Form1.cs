@@ -109,7 +109,9 @@ namespace Lab2_IM
                 var interval = Double.Parse(IntervalTextBox.Text);
                 var deltaTime = Double.Parse(DeltaTextBox.Text);
 
-                var simualateEnum = DynamicModelingFunctional.SimulateFSharp(interval, deltaTime, alphaArrayA, alphaArrayB);
+                var simualateEnum = DynamicModelingFunctional.SimulateFSharp(interval, alphaArrayA, alphaArrayB, deltaTime);
+
+                var data = simualateEnum.Last();
 
                 foreach (var a in simualateEnum)
                 {

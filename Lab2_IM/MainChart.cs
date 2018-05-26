@@ -10,18 +10,16 @@ using System.Windows.Forms;
 
 namespace Lab2_IM
 {
-    public partial class ChartsForm : Form
+    public partial class MainChart : Form
     {
-        public ChartsForm()
+        public MainChart()
         {
             InitializeComponent();
         }
 
         public void AddChartData((double time, int count, int stackA, int stackB) input)
         {
-            countChart.Series[0].Points.AddXY(input.time, input.count);
-            stackAChart.Series[0].Points.AddXY(input.time, input.stackA);
-            stackBChart.Series[0].Points.AddXY(input.time, input.stackB);
+            chartkek.Series[0].Points.AddXY(input.time, input.count);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Lab2_IM
 
                     chartForm.Show();
 
-                    if (AlphaComboBox.Items.Equals("A") == true) alphaAI += (double)step;
+                    if (AlphaComboBox.SelectedIndex == 0) alphaAI += (double)step;
                     else alphaBI += (double)step;
                 }
                 catch

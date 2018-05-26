@@ -25,7 +25,7 @@ namespace Lab2_IM
             double alphaBI = 0;
             decimal step = Convert.ToDecimal(StepTextBox.Text);
 
-            if (AlphaComboBox.Items.Equals("A") == true)
+            if (AlphaComboBox.SelectedIndex == 0)
             {
                 k = (int)(Math.Floor(((Convert.ToDecimal(AlphaAToTextBox.Text) - Convert.ToDecimal(AlphaAByTextBox.Text)) / step)));
             }

@@ -21,6 +21,8 @@ namespace Lab2_IM
         private void button1_Click(object sender, EventArgs e)
         {
             int k = 0;
+            double interval = Convert.ToDouble(IntervalTextBox.Text);
+            double delta = Convert.ToDouble(DeltaTextBox.Text);
             double alphaAI = 0;
             double alphaBI = 0;
             decimal step = Convert.ToDecimal(StepTextBox.Text);
@@ -39,20 +41,19 @@ namespace Lab2_IM
                 try
                 {
                     resultDataGrid.Rows.Clear();
-                    var chartForm = new ChartsForm();
+                    var chartForm = new MainChart();
 
                     var alphaArrayA = new double[2];
-                    alphaArrayA[0] = alphaArrayA[1] = alphaAI; //Double.Parse(alphaA.Text);
+                    alphaArrayA[0] = alphaArrayA[1] = alphaAI;
 
                     var alphaArrayB = new double[4];
-                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaBI; //Double.Parse(alphaB.Text);
+                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaBI;
 
-                    var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
+                    var simualateEnum = DynamicModelingFunctional.Simulate(interval, delta, alphaArrayA, alphaArrayB);
 
                     foreach (var a in simualateEnum)
                     {
                         chartForm.AddChartData(a);
-                        resultDataGrid.Rows.Add(a.time, a.count, a.stackA, a.stackB);
                     }
 
                     chartForm.Show();
@@ -64,6 +65,35 @@ namespace Lab2_IM
                 {
                     MessageBox.Show("Что-то пошло не так");
                 }
+            }
+        }
+
+        private void TableButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                resultDataGrid.Rows.Clear();
+                var chartForm = new ChartsForm();
+
+                var alphaArrayA = new double[2];
+                alphaArrayA[0] = alphaArrayA[1] = Double.Parse(TableATextBox.Text);
+
+                var alphaArrayB = new double[4];
+                alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = Double.Parse(TableBTextBox.Text);
+
+                var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
+
+                foreach (var a in simualateEnum)
+                {
+                    chartForm.AddChartData(a);
+                    resultDataGrid.Rows.Add(a.time, a.count, a.stackA, a.stackB);
+                }
+
+                chartForm.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так");
             }
         }
     }

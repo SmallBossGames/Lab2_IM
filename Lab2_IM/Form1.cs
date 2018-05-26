@@ -111,8 +111,6 @@ namespace Lab2_IM
 
                 var simualateEnum = DynamicModelingFunctional.SimulateFSharp(interval, alphaArrayA, alphaArrayB, deltaTime);
 
-                var data = simualateEnum.Last();
-
                 foreach (var a in simualateEnum)
                 {
                     chartForm.AddChartData(a);

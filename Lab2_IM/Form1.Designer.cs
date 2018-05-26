@@ -42,12 +42,20 @@
             this.alphaB = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.AlphaBTo = new System.Windows.Forms.TextBox();
+            this.AlphaBBy = new System.Windows.Forms.TextBox();
+            this.AlphaATo = new System.Windows.Forms.TextBox();
+            this.AlphaABy = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.resultDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // BUTTON
             // 
-            this.BUTTON.Location = new System.Drawing.Point(12, 113);
+            this.BUTTON.Location = new System.Drawing.Point(15, 231);
             this.BUTTON.Name = "BUTTON";
             this.BUTTON.Size = new System.Drawing.Size(168, 23);
             this.BUTTON.TabIndex = 0;
@@ -133,7 +141,7 @@
             // 
             // alphaB
             // 
-            this.alphaB.Location = new System.Drawing.Point(80, 87);
+            this.alphaB.Location = new System.Drawing.Point(71, 150);
             this.alphaB.Name = "alphaB";
             this.alphaB.Size = new System.Drawing.Size(100, 20);
             this.alphaB.TabIndex = 9;
@@ -143,24 +151,96 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Альфа A";
+            this.label3.Text = "Альфа A:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 90);
+            this.label4.Location = new System.Drawing.Point(12, 153);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 11;
-            this.label4.Text = "Альфа B";
+            this.label4.Text = "Альфа B:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 205);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "До:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 181);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(23, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "От:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 112);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(25, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "До:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 88);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(23, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "От:";
+            // 
+            // AlphaBTo
+            // 
+            this.AlphaBTo.Location = new System.Drawing.Point(39, 202);
+            this.AlphaBTo.Name = "AlphaBTo";
+            this.AlphaBTo.Size = new System.Drawing.Size(100, 20);
+            this.AlphaBTo.TabIndex = 16;
+            // 
+            // AlphaBBy
+            // 
+            this.AlphaBBy.Location = new System.Drawing.Point(39, 176);
+            this.AlphaBBy.Name = "AlphaBBy";
+            this.AlphaBBy.Size = new System.Drawing.Size(100, 20);
+            this.AlphaBBy.TabIndex = 17;
+            // 
+            // AlphaATo
+            // 
+            this.AlphaATo.Location = new System.Drawing.Point(41, 109);
+            this.AlphaATo.Name = "AlphaATo";
+            this.AlphaATo.Size = new System.Drawing.Size(100, 20);
+            this.AlphaATo.TabIndex = 18;
+            // 
+            // AlphaABy
+            // 
+            this.AlphaABy.Location = new System.Drawing.Point(41, 85);
+            this.AlphaABy.Name = "AlphaABy";
+            this.AlphaABy.Size = new System.Drawing.Size(100, 20);
+            this.AlphaABy.TabIndex = 19;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(642, 473);
+            this.Controls.Add(this.AlphaABy);
+            this.Controls.Add(this.AlphaATo);
+            this.Controls.Add(this.AlphaBBy);
+            this.Controls.Add(this.AlphaBTo);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.alphaB);
@@ -195,6 +275,14 @@
         private System.Windows.Forms.TextBox alphaB;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox AlphaBTo;
+        private System.Windows.Forms.TextBox AlphaBBy;
+        private System.Windows.Forms.TextBox AlphaATo;
+        private System.Windows.Forms.TextBox AlphaABy;
     }
 }
 

@@ -15,34 +15,55 @@ namespace Lab2_IM
         public Form1()
         {
             InitializeComponent();
+            AlphaComboBox.Items.Add("A"); AlphaComboBox.Items.Add("B");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            int k = 0;
+            double alphaAI = 0;
+            double alphaBI = 0;
+            decimal step = Convert.ToDecimal(StepTextBox.Text);
+
+            if (AlphaComboBox.SelectedIndex == 0)
             {
-                resultDataGrid.Rows.Clear();
-                var chartForm = new ChartsForm();
-
-                var alphaArrayA = new double[3];
-                alphaArrayA[0] = alphaArrayA[1] = alphaArrayA[2] = Double.Parse(alphaA.Text);
-
-                var alphaArrayB = new double[5];
-                alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaArrayB[4] = Double.Parse(alphaB.Text);
-
-                var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
-
-                foreach (var a in simualateEnum)
-                {
-                    chartForm.AddChartData(a);
-                    resultDataGrid.Rows.Add(a.time, a.count, a.stackA, a.stackB);
-                }
-
-                chartForm.Show();
+                k = (int)(Math.Floor(((Convert.ToDecimal(AlphaAToTextBox.Text) - Convert.ToDecimal(AlphaAByTextBox.Text)) / step)));
             }
-            catch
+            else k = (int)(Math.Floor(((Convert.ToDecimal(AlphaBToTextBox.Text) - Convert.ToDecimal(AlphaBByTextBox.Text)) / step)));
+
+            alphaAI = Convert.ToDouble(AlphaAByTextBox.Text);
+            alphaBI = Convert.ToDouble(AlphaBByTextBox.Text);
+
+            for (int i = 1; i < k + 1; i++)
             {
-                MessageBox.Show("Что-то пошло не так");
+                try
+                {
+                    resultDataGrid.Rows.Clear();
+                    var chartForm = new ChartsForm();
+
+                    var alphaArrayA = new double[2];
+                    alphaArrayA[0] = alphaArrayA[1] = alphaAI; //Double.Parse(alphaA.Text);
+
+                    var alphaArrayB = new double[4];
+                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaBI; //Double.Parse(alphaB.Text);
+
+                    var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
+
+                    foreach (var a in simualateEnum)
+                    {
+                        chartForm.AddChartData(a);
+                        resultDataGrid.Rows.Add(a.time, a.count, a.stackA, a.stackB);
+                    }
+
+                    chartForm.Show();
+
+                    if (AlphaComboBox.SelectedIndex == 0) alphaAI += (double)step;
+                    else alphaBI += (double)step;
+                }
+                catch
+                {
+                    MessageBox.Show("Что-то пошло не так");
+                }
             }
         }
     }

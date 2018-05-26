@@ -43,11 +43,11 @@ namespace Lab2_IM
                     resultDataGrid.Rows.Clear();
                     var chartForm = new MainChart();
 
-                    var alphaArrayA = new double[2];
-                    alphaArrayA[0] = alphaArrayA[1] = alphaAI;
+                    var alphaArrayA = new double[3];
+                    alphaArrayA[0] = alphaArrayA[1] = alphaArrayA[2] = alphaAI;
 
-                    var alphaArrayB = new double[4];
-                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaBI;
+                    var alphaArrayB = new double[5];
+                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaArrayB[4] = alphaBI;
 
                     var simualateEnum = DynamicModelingFunctional.Simulate(interval, delta, alphaArrayA, alphaArrayB);
 
@@ -75,11 +75,11 @@ namespace Lab2_IM
                 resultDataGrid.Rows.Clear();
                 var chartForm = new ChartsForm();
 
-                var alphaArrayA = new double[2];
-                alphaArrayA[0] = alphaArrayA[1] = Double.Parse(TableATextBox.Text);
+                var alphaArrayA = new double[3];
+                alphaArrayA[0] = alphaArrayA[1] = alphaArrayA[2] = Double.Parse(TableATextBox.Text);
 
-                var alphaArrayB = new double[4];
-                alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = Double.Parse(TableBTextBox.Text);
+                var alphaArrayB = new double[5];
+                alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaArrayB[4] = Double.Parse(TableBTextBox.Text);
 
                 var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
 

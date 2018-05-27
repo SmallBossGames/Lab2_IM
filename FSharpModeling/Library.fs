@@ -36,15 +36,15 @@ module MainSystem =
             deltaTime:double
         }
 
-    let delay (dMin, dMax, dCur, level, alpha)= 
+    let delay (dMin, dMax, dCur, levelNext, alpha)= 
         let dMid = (dMin+dMax)/2.0
-        dMin+dMid*(level/dCur)+alpha*dMax
+        dMin+dMid*(levelNext/dCur)+alpha*dMax
     
     let flow (level, dCur)= 
         level/dCur
 
-    let flowInput (levelCur, criticalValue)=
-        if levelCur < criticalValue 
+    let flowInput (levelNext, criticalValue)=
+        if levelNext < criticalValue 
         then Allocations.getCompletion()
         else 0.0
 
@@ -69,19 +69,19 @@ module MainSystem =
     let nextStatus (simInput, defaultA, defaultB, productCount)=
         let newDelays(delays:double[], levels:double[], alpha) =
             for i in 0..delays.Length-1 do
-                delays.[i] <- delay (InputConst.minDelay, InputConst.maxDelay, delays.[i], levels.[i], alpha)
+                delays.[i] <- delay (InputConst.minDelay, InputConst.maxDelay, delays.[i], levels.[i+1], alpha)
             delays  
         let newLevels (levels:double[], delays:double[], defaultStack) =
             for i in 0..levels.Length-1 do
                 if i=0 then 
-                    let flowFrom = flow(levels.[i], delays.[i])
+                    let flowFrom = flow(levels.[i+1], delays.[i])
                     levels.[i] <- levelInput(levels.[i], defaultStack, flowFrom, InputConst.criticalValKoeff, simInput.deltaTime)
-                else if i=levels.Length-1 then
-                    let flowTo = flow(levels.[i-1], delays.[i-1])
+                elif i=levels.Length-1 then
+                    let flowTo = flow(levels.[i], delays.[i-1])
                     levels.[i] <- levelEnd(levels.[i], simInput.deltaTime, flowTo)
                 else 
-                    let flowFrom = flow(levels.[i], delays.[i])
-                    let flowTo = flow(levels.[i-1], delays.[i-1])
+                    let flowFrom = flow(levels.[i+1], delays.[i])
+                    let flowTo = flow(levels.[i], delays.[i-1])
                     levels.[i] <- level(levels.[i], simInput.deltaTime, flowTo, flowFrom)
             levels
         let newDelaysA = newDelays(simInput.delaysA, simInput.levelsA, simInput.alphaA)

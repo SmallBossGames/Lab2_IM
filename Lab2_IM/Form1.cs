@@ -73,8 +73,8 @@ namespace Lab2_IM
 
         private void TableButton_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 resultDataGrid.Rows.Clear();
                 var chartForm = new ChartsForm();
 
@@ -93,17 +93,17 @@ namespace Lab2_IM
                 }
 
                 chartForm.Show();
-            }
-            catch(Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
+            //}
+            //catch(Exception exception)
+            //{
+             //   MessageBox.Show(exception.Message);
+            //}
         }
 
         private void TableButtonFSharp_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 resultDataGrid.Rows.Clear();
                 var chartForm = new ChartsForm();
 
@@ -121,11 +121,11 @@ namespace Lab2_IM
                 }
 
                 chartForm.Show();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
+           // }
+            //catch (Exception exception)
+            //{
+            //    MessageBox.Show(exception.Message);
+            //}
         }
     }
 }

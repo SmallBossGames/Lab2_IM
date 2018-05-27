@@ -54,11 +54,11 @@ namespace Lab2_IM
 
                     foreach (var a in simualateEnum)
                     {
-                        chartForm.AddChartData(a);
+                        //chartForm.AddChartData(a);
                         tableForm.AddDataViewData(a, alphaAI, alphaBI);
                     }
 
-                    chartForm.Show();
+                    //chartForm.Show();
                     tableForm.Show();
 
                     if (AlphaComboBox.SelectedIndex == 0) alphaAI += (double)step;

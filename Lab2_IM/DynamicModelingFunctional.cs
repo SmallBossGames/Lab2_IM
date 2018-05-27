@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FSharpModeling;
 
 namespace Lab2_IM
 {
@@ -16,7 +17,7 @@ namespace Lab2_IM
         static readonly Random random = new Random();
 
         //Вспомогательные функции
-        static double GetMid(double minDelay, double maxDelay) => (maxDelay - minDelay) / 2.0;
+        static double GetMid(double minDelay, double maxDelay) => (maxDelay + minDelay) / 2.0;
 
         static double GetCriticalValue(double defaultValue, double criticalKoefficient) 
             => defaultValue * criticalKoefficient;
@@ -40,22 +41,24 @@ namespace Lab2_IM
         }
 
         //Основные функции
-        static double Flow(double level, double delay) => level / delay;
+        static double Flow(double level, double delay) 
+            => level / delay;
+
+        static double FlowInput(double currentLevel, double criticalValue)
+           => (currentLevel < criticalValue) ? GetCompletion() : 0;
 
         static double Delay(double minDelay, double maxDelay, double currentDelay, double level, double alpha) 
             => minDelay + GetMid(minDelay, maxDelay) * (level / currentDelay) + maxDelay * alpha;
 
-        static void Level(ref double levelFrom, ref double levelTo, double deltaTime, double flow)
-        {
-            if (levelFrom < 0) throw new Exception();
-            var currentFlow = deltaTime * flow;
-            levelFrom -= currentFlow;
-            levelTo += currentFlow;
-            if(levelTo < 0) throw new Exception();
-        }
+        static double Level(double current, double flowFrom, double flowTo, double deltaTime)
+            => current + deltaTime * (flowTo - flowFrom);
 
-        static double LevelWithInput(double currentLevel, double criticalValue)
-            => (currentLevel < criticalValue) ? currentLevel + GetCompletion() : currentLevel;
+        static double LevelFirst(double current, double criticalValue, double flowFrom, double deltaTime)
+            => current - flowFrom * deltaTime + FlowInput(current, criticalValue);
+
+        static double LevelLast(double current, double flowTo, double deltaTime)
+            => current + flowTo * deltaTime;
+       
 
         static int MakeProduct(double aNeed, double bNeed, ref double levelA, ref double levelB)
         {
@@ -102,35 +105,44 @@ namespace Lab2_IM
 
             var levelsBDefault = levelsB.Clone() as double[];
 
-            //Начальные значения задержки. Пусть они равны средней
+            //Начальные значения задержки
             var levelsADelay = new double[3];
-            levelsADelay[0] = levelsADelay[1] = levelsADelay[2]
-                = GetMid(minDelay, maxDelay);
+            for (int j = 0; j < levelsADelay.Length; j++)
+                levelsADelay[j] = levelsA[j] / 10.0; 
 
             var levelsBDelay = new double[5];
-            levelsBDelay[0] = levelsBDelay[1] = levelsBDelay[2] = levelsBDelay[3] = levelsBDelay[4] 
-                = GetMid(minDelay, maxDelay);
+            for (int j = 0; j < levelsBDelay.Length; j++)
+                levelsBDelay[j] = levelsB[j] / 10.0;
 
-
+            double flow = 0, lastFlow = 0;
 
             //Основной цикл
             for (int i = 0; i * deltaTime < intervalLength; i++)
             {
-                levelsA[0] = LevelWithInput(levelsA[0], GetCriticalValue(levelsADefault[0], criticalValueKoeff));
-                levelsB[0] = LevelWithInput(levelsB[0], GetCriticalValue(levelsBDefault[0], criticalValueKoeff));
-
-                for (int j = 1; j < levelsA.Length; j++)
+                for (int j = 0; j < levelsA.Length; j++)
                 {
-                    levelsADelay[j-1] = Delay(minDelay, maxDelay, levelsADelay[j-1], levelsA[j-1], flowsAlphaA[j - 1]);
-                    var flow = Flow(levelsA[j - 1], levelsADelay[j - 1]);
-                    Level(ref levelsA[j - 1], ref levelsA[j], deltaTime, flow);
+                    levelsADelay[j] = Delay(minDelay, maxDelay, levelsADelay[j], levelsA[j], flowsAlphaA[j]);
+                    flow = Flow(levelsA[j], levelsADelay[j]);
+
+                    if (j == 0)
+                        levelsA[j] = LevelFirst(levelsA[0], GetCriticalValue(levelsADefault[0], criticalValueKoeff), flow, deltaTime);
+                    else if (j == levelsA.Length - 1)
+                        levelsA[j] = LevelLast(levelsA[j], lastFlow, deltaTime);
+                    else levelsA[j] = Level(levelsA[j], flow, lastFlow, deltaTime);
+                    lastFlow = flow;
                 }
 
-                for (int j = 1; j < levelsB.Length; j++)
+                for (int j = 0; j < levelsB.Length; j++)
                 {
-                    levelsBDelay[j-1] = Delay(minDelay, maxDelay, levelsBDelay[j-1], levelsB[j-1], flowsAlphaB[j - 1]);
-                    var flow = Flow(levelsB[j - 1], levelsBDelay[j - 1]);
-                    Level(ref levelsB[j-1], ref levelsB[j], deltaTime, flow);
+                    levelsBDelay[j] = Delay(minDelay, maxDelay, levelsBDelay[j], levelsB[j], flowsAlphaB[j]);
+                    flow = Flow(levelsB[j], levelsBDelay[j]);
+
+                    if (j == 0)
+                        levelsB[j] = LevelFirst(levelsB[0], GetCriticalValue(levelsBDefault[0], criticalValueKoeff), flow, deltaTime);
+                    else if (j == levelsB.Length - 1)
+                        levelsB[j] = LevelLast(levelsB[j], lastFlow, deltaTime);
+                    else levelsB[j] = Level(levelsB[j], flow, lastFlow, deltaTime);
+                    lastFlow = flow;
                 }
 
                 productCount += MakeProduct(aNeed, bNeed, ref levelsA[2], ref levelsB[4]);
@@ -139,5 +151,34 @@ namespace Lab2_IM
             }
         }
 
+        public static IEnumerable<(double time, int count, int stackA, int stackB)> SimulateFSharp(double intervalLength, double alphaA, double alphaB, double deltaTime)
+        {
+
+            //Начальные значения уровней
+            var levelsA = new double[3];
+            levelsA[0] = 150;
+            levelsA[1] = 30;
+            levelsA[2] = 25;
+
+            var levelsB = new double[5];
+            levelsB[0] = 120;
+            levelsB[1] = 30;
+            levelsB[2] = 30;
+            levelsB[3] = 30;
+            levelsB[4] = 50;
+
+            var levelsADelay = new double[3];
+            levelsADelay[0] = levelsADelay[1] = levelsADelay[2]
+                = (4 + 12) / 2;
+
+            var levelsBDelay = new double[5];
+            levelsBDelay[0] = levelsBDelay[1] = levelsBDelay[2] = levelsBDelay[3] = levelsBDelay[4]
+                = (4 + 12) / 2;
+
+            MainSystem.SimulationInput input =
+                new MainSystem.SimulationInput(levelsA, levelsB, levelsADelay, levelsBDelay, alphaA, alphaB, deltaTime);
+
+            return MainSystem.simulation(input, intervalLength);
+        }
     }
 }

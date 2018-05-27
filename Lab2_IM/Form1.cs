@@ -44,11 +44,11 @@ namespace Lab2_IM
                     var chartForm = new MainChart();
                     var tableForm = new TableForm();
 
-                    var alphaArrayA = new double[2];
-                    alphaArrayA[0] = alphaArrayA[1] = alphaAI;
+                    var alphaArrayA = new double[3];
+                    alphaArrayA[0] = alphaArrayA[1] = alphaArrayA[2] = alphaAI;
 
-                    var alphaArrayB = new double[4];
-                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaBI;
+                    var alphaArrayB = new double[5];
+                    alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaArrayB[4] = alphaBI;
 
                     var simualateEnum = DynamicModelingFunctional.Simulate(interval, delta, alphaArrayA, alphaArrayB);
 
@@ -78,11 +78,11 @@ namespace Lab2_IM
                 resultDataGrid.Rows.Clear();
                 var chartForm = new ChartsForm();
 
-                var alphaArrayA = new double[2];
-                alphaArrayA[0] = alphaArrayA[1] = Double.Parse(TableATextBox.Text);
+                var alphaArrayA = new double[3];
+                alphaArrayA[0] = alphaArrayA[1] = alphaArrayA[2] = Double.Parse(TableATextBox.Text);
 
-                var alphaArrayB = new double[4];
-                alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = Double.Parse(TableBTextBox.Text);
+                var alphaArrayB = new double[5];
+                alphaArrayB[0] = alphaArrayB[1] = alphaArrayB[2] = alphaArrayB[3] = alphaArrayB[4] = Double.Parse(TableBTextBox.Text);
 
                 var simualateEnum = DynamicModelingFunctional.Simulate(Double.Parse(IntervalTextBox.Text), Double.Parse(DeltaTextBox.Text), alphaArrayA, alphaArrayB);
 
@@ -94,9 +94,37 @@ namespace Lab2_IM
 
                 chartForm.Show();
             }
-            catch
+            catch(Exception exception)
             {
-                MessageBox.Show("Что-то пошло не так");
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void TableButtonFSharp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                resultDataGrid.Rows.Clear();
+                var chartForm = new ChartsForm();
+
+                var alphaArrayA = Double.Parse(TableATextBox.Text);
+                var alphaArrayB = Double.Parse(TableBTextBox.Text);
+                var interval = Double.Parse(IntervalTextBox.Text);
+                var deltaTime = Double.Parse(DeltaTextBox.Text);
+
+                var simualateEnum = DynamicModelingFunctional.SimulateFSharp(interval, alphaArrayA, alphaArrayB, deltaTime);
+
+                foreach (var a in simualateEnum)
+                {
+                    chartForm.AddChartData(a);
+                    resultDataGrid.Rows.Add(a.time, a.count, a.stackA, a.stackB);
+                }
+
+                chartForm.Show();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
         }
     }

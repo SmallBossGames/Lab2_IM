@@ -42,6 +42,7 @@ namespace Lab2_IM
                 {
                     resultDataGrid.Rows.Clear();
                     var chartForm = new MainChart();
+                    var tableForm = new TableForm();
 
                     var alphaArrayA = new double[2];
                     alphaArrayA[0] = alphaArrayA[1] = alphaAI;
@@ -54,9 +55,11 @@ namespace Lab2_IM
                     foreach (var a in simualateEnum)
                     {
                         chartForm.AddChartData(a);
+                        tableForm.AddDataViewData(a, alphaAI, alphaBI);
                     }
 
                     chartForm.Show();
+                    tableForm.Show();
 
                     if (AlphaComboBox.SelectedIndex == 0) alphaAI += (double)step;
                     else alphaBI += (double)step;

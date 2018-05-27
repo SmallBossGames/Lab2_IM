@@ -294,7 +294,7 @@
             this.TableButtonCSharp.Name = "TableButtonCSharp";
             this.TableButtonCSharp.Size = new System.Drawing.Size(180, 23);
             this.TableButtonCSharp.TabIndex = 28;
-            this.TableButtonCSharp.Text = "Рассчёт на C#";
+            this.TableButtonCSharp.Text = "Расчёт на C#";
             this.TableButtonCSharp.UseVisualStyleBackColor = true;
             this.TableButtonCSharp.Click += new System.EventHandler(this.TableButton_Click);
             // 
@@ -313,7 +313,7 @@
             this.TableButtonFSharp.Name = "TableButtonFSharp";
             this.TableButtonFSharp.Size = new System.Drawing.Size(180, 23);
             this.TableButtonFSharp.TabIndex = 30;
-            this.TableButtonFSharp.Text = "Рассчёт на F#";
+            this.TableButtonFSharp.Text = "Расчёт на F#";
             this.TableButtonFSharp.UseVisualStyleBackColor = true;
             this.TableButtonFSharp.Click += new System.EventHandler(this.TableButtonFSharp_Click);
             // 
